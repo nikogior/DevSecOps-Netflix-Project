@@ -49,6 +49,47 @@ install_kubectl(){
     sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
     kubectl version --client
 }
+install_prometheus(){
+    sudo useradd --system --no-create-home --shell /bin/false prometheus
+    wget https://github.com/prometheus/prometheus/releases/download/v3.3.0/prometheus-3.3.0.linux-amd64.tar.gz
+    tar xvfz prometheus-*.tar.gz
+    cd prometheus-*
+    sudo mkdir -p /data /etc/prometheus
+    sudo mv prometheus promtool /usr/local/bin/
+    sudo mv consoles/ console_libraries/ /etc/prometheus/
+    sudo mv prometheus.yml /etc/prometheus/prometheus.yml
+    sudo chown -R prometheus:prometheus /etc/prometheus/ /data/
+    cat <<EOF | sudo tee -a /etc/systemd/system/prometheus.service
+[Unit]
+Description=Prometheus
+Wants=network-online.target
+After=network-online.target
+
+StartLimitIntervalSec=500
+StartLimitBurst=5
+
+[Service]
+User=prometheus
+Group=prometheus
+Type=simple
+Restart=on-failure
+RestartSec=5s
+ExecStart=/usr/local/bin/prometheus \
+  --config.file=/etc/prometheus/prometheus.yml \
+  --storage.tsdb.path=/data \
+  --web.console.templates=/etc/prometheus/consoles \
+  --web.console.libraries=/etc/prometheus/console_libraries \
+  --web.listen-address=0.0.0.0:9090 \
+  --web.enable-lifecycle
+
+[Install]
+WantedBy=multi-user.target
+EOF
+    sudo systemctl enable prometheus
+    sudo systemctl start prometheus
+    sudo systemctl status prometheus
+    # Accessed via: http://<your-server-ip>:9090
+}
 
 # Update and add required packages
 sudo apt update -y 
@@ -69,3 +110,10 @@ setup_sonarqube
 install_trivy
 # Install kubectl
 install_kubectl
+
+# Open a new tab in the Browser and search for TMDB API key
+# Create account, click Account Icon on the top right > Settings > API > Create API. Follow the steps and Generate the API
+
+# Install Prometheus and Grafana 
+# install_prometheus
+
