@@ -22,7 +22,7 @@ module "ec2_complete" {
   # only one of these can be enabled at a time
   hibernation = true
   # enclave_options_enabled = true
-
+  user_data_base64            = filebase64("${path.cwd}/config/scripts/${terraform.workspace}/ec2-ud-sa-tmo-site-new.sh")
   user_data_base64            = base64encode(local.user_data)
   user_data_replace_on_change = true
 
