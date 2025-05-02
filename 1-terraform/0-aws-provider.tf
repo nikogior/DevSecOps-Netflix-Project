@@ -1,8 +1,20 @@
+# Common resources:
+# - VPC: britebill-ms360-52590630-VPC-003: vpc-091f24c021616d3e7
+# - SUBNETS: 
+# - britebill-ms360-52590630-VPC-003-DATA-AZ-1	subnet-06071e5712141343f 
+# - britebill-ms360-52590630-VPC-003-DATA-AZ-2	subnet-0767cf2c8acdf8c31
+# - britebill-ms360-52590630-VPC-003-DATA-AZ-3	subnet-0cac7670b94b35341
+# - britebill-ms360-52590630-VPC-003-UTILS-AZ-1	subnet-032482e5102ca0bb1
+# - britebill-ms360-52590630-VPC-003-UTILS-AZ-2	subnet-04725e435f5c5a482
+# - britebill-ms360-52590630-VPC-003-UTILS-AZ-3	subnet-045729cf1d381b7f5
+# - britebill-ms360-52590630-VPC-003-WORKERS-AZ-1	subnet-0f0e543c4bd28d9dd eu-west-1a
+# - britebill-ms360-52590630-VPC-003-WORKERS-AZ-2	subnet-030db4822e11f59f3 eu-west-1b
+# - britebill-ms360-52590630-VPC-003-WORKERS-AZ-3	subnet-0c8ce64cf9cb27b68 eu-west-1c
 terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "5.70.0"
+      version = "5.96.0"
     }
   }
 }
