@@ -1,0 +1,61 @@
+---
+
+
+
+# Common resources:
+# - VPC: britebill-ms360-52590630-VPC-003: vpc-091f24c021616d3e7
+# - SUBNETS: 
+# - britebill-ms360-52590630-VPC-003-DATA-AZ-1	subnet-06071e5712141343f 
+# - britebill-ms360-52590630-VPC-003-DATA-AZ-2	subnet-0767cf2c8acdf8c31
+# - britebill-ms360-52590630-VPC-003-DATA-AZ-3	subnet-0cac7670b94b35341
+# - britebill-ms360-52590630-VPC-003-UTILS-AZ-1	subnet-032482e5102ca0bb1
+# - britebill-ms360-52590630-VPC-003-UTILS-AZ-2	subnet-04725e435f5c5a482
+# - britebill-ms360-52590630-VPC-003-UTILS-AZ-3	subnet-045729cf1d381b7f5
+# - britebill-ms360-52590630-VPC-003-WORKERS-AZ-1	subnet-0f0e543c4bd28d9dd eu-west-1a
+# - britebill-ms360-52590630-VPC-003-WORKERS-AZ-2	subnet-030db4822e11f59f3 eu-west-1b
+# - britebill-ms360-52590630-VPC-003-WORKERS-AZ-3	subnet-0c8ce64cf9cb27b68 eu-west-1c
+
+
+
+
+
+
+
+
+# availability_zone: "eu-west-1a"
+# subnet_id: "subnet-0f0e543c4bd28d9dd"
+# vpc_id: "vpc-091f24c021616d3e7"
+
+
+
+
+# IRELAND Region
+region: eu-west-1
+# cidr_base: 10.245
+
+# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#  EC2 INSTANCE VALUES:
+# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ec2_instance_type: t3.large
+aws_source_account: 908498972433
+aws_iam_role: BBAdminRole
+iam_instance_profile_name: "TechOps_puppet_machien_role"
+# TODO: CREATE THE SECURITY GROUPS FROM SCRATCH:
+ec2_security_groups: ["sg-bad058de", "sg-0fc9ac0d0d4adf643"]
+# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# TODO: ENSURE WE HAVE THE PROPER VPC NETWORKING SETUP
+main_vpc_id: "vpc-9f82cbfa" # bb.vpc
+# vpc_private_route_table_ids:      ["rtb-0a9bb0f5805001ee1", "rtb-04ab851e25bdf4e2d"]     
+vpc_private_subnets:              ["subnet-523f6425", "subnet-1a380b7f"]        
+vpc_private_subnets_names:        ["bb.vpc.priv.a.00", "bb.vpc.priv.b.01"]        
+# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# # TODO: Route53 Details (given by TMO)
+# private_domain_id: "Z05753292X43HX23N827D"
+public_hz_id: "Z3TEFOTUGOJX6Z"
+public_hz_name: "bb-vpc.com"
+# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+

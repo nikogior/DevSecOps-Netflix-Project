@@ -5,14 +5,14 @@ module "ec2_complete" {
 
   name = local.name
 
-  ami                    = data.aws_ami.amazon_linux_23.id
-  instance_type          = "c5.xlarge" # used to set core count below
+  ami           = data.aws_ami.amazon_linux_23.id
+  instance_type = "c5.xlarge" # used to set core count below
   # availability_zone      = element(module.vpc.azs, 0)
   # subnet_id              = element(module.vpc.private_subnets, 0)
   availability_zone      = "eu-west-1a"
   subnet_id              = "subnet-0f0e543c4bd28d9dd"
   vpc_security_group_ids = [module.security_group.security_group_id]
-  placement_group        = aws_placement_group.web.id
+  # placement_group        = aws_placement_group.web.id
   create_eip             = false
   disable_api_stop       = false
 
@@ -61,7 +61,7 @@ module "ec2_complete" {
   tags = merge(
     local.tags,
     {
-      ccoe_http_proxy = "http://cirrus-proxy.shared-services.local:8080"
+      ccoe_http_proxy  = "http://cirrus-proxy.shared-services.local:8080"
       ccoe_https_proxy = "http://cirrus-proxy.shared-services.local:8080"
     }
   )
@@ -90,9 +90,9 @@ data "aws_ami" "amazon_linux_23" {
   owners      = ["737787953020"]
 
   filter {
-    name   = "name"
+    name = "name"
     # values = ["al2023-ami-2023*-x86_64"]
-    values = ["PROD-Amazon-Linux-2023-Dec-2024"]
+    values = ["PROD-Amazon-Linux-2023-July-2023"]
   }
 }
 # data "aws_ami" "amazon_linux" {
@@ -106,12 +106,12 @@ data "aws_ami" "amazon_linux_23" {
 # }
 
 module "security_group" {
-  source  = "terraform-aws-modules/security-group/aws"
-  version = "~> 4.0"
+  source      = "terraform-aws-modules/security-group/aws"
+  version     = "~> 4.0"
   name        = local.name
   description = "Security group for example usage with EC2 instance"
   # vpc_id      = module.vpc.vpc_id
-  vpc_id      = "vpc-091f24c021616d3e7"
+  vpc_id              = "vpc-091f24c021616d3e7"
   ingress_cidr_blocks = ["0.0.0.0/0"]
   ingress_rules       = ["http-80-tcp", "all-icmp"]
   ingress_with_cidr_blocks = [
@@ -130,14 +130,14 @@ module "security_group" {
       cidr_blocks = "0.0.0.0/0"
     }
   ]
-  egress_rules        = ["all-all"]
-  tags = local.tags
+  egress_rules = ["all-all"]
+  tags         = local.tags
 }
 
-resource "aws_placement_group" "web" {
-  name     = local.name
-  strategy = "cluster"
-}
+# resource "aws_placement_group" "web" {
+#   name     = local.name
+#   strategy = "cluster"
+# }
 
 resource "aws_kms_key" "this" {
 }
