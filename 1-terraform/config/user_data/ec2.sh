@@ -136,4 +136,4 @@ export https_proxy="http://cirrus-proxy.shared-services.local:8080"
 # Create account, click Account Icon on the top right > Settings > API > Create API. Follow the steps and Generate the API
 
 # Install Prometheus and Grafana 
-# install_prometheus
+install_prometheus
